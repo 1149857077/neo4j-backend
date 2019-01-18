@@ -31,26 +31,44 @@ public class UserController {
     }
 
     @PostMapping("/user/become_friends")
-    public ServerResponse becomeFriend(String username,HttpSession session){
+    public ServerResponse becomeFriend(String friend_username,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user==null){
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        if(username==null){
+        if(friend_username==null){
             return ServerResponse.createByErrorMessage("未指定好友名");
         }
-        return iUserService.becomeFriend(user.getUsername(),username);
+        return iUserService.becomeFriend(user.getUsername(),friend_username);
     }
 
     @PostMapping("/user/del_friend")
-    public ServerResponse delFriend(String username,HttpSession session){
+    public ServerResponse delFriend(String friend_username,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user==null){
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        if(username==null){
+        if(friend_username==null){
             return ServerResponse.createByErrorMessage("未指定好友名");
         }
-        return iUserService.delFriend(user.getUsername(),username);
+        return iUserService.delFriend(user.getUsername(),friend_username);
+    }
+
+    @GetMapping("/user/get_all_friends")
+    public ServerResponse findAllFriends(HttpSession session){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if (user==null){
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }
+        return iUserService.getAllFriends(user.getUsername());
+    }
+
+    @PostMapping("/user/get_friends_of_friend")
+    public ServerResponse getFriendsOfFriend(String friend_username,HttpSession session){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        if (user==null){
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }
+        return iUserService.getAllFriends(friend_username);
     }
 }

@@ -21,16 +21,22 @@ public class User {
     private String sex;
     private String desc;
 
-    @Relationship(type = "Friend")
-    private List<Friend> friends;
+    //@Relationship(type = "Friend")
+    //private List<Friend> friends;
 
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public User emptyPassword() {
+        this.password = null;
+        return this;
     }
 
     public String getUsername() {
@@ -65,11 +71,11 @@ public class User {
         this.desc = desc;
     }
 
-    public List<Friend> getFriends() {
-        return friends;
-    }
+    //public List<Friend> getFriends() {
+    //    return friends;
+    //}
 
-    public void setFriends(List<Friend> friends) {
-        this.friends = friends;
-    }
+    //public void setFriends(List<Friend> friends) {
+    //    this.friends = friends;
+    //}
 }

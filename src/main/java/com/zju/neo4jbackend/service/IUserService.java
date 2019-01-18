@@ -9,7 +9,12 @@ public interface IUserService {
 
     ServerResponse register(User user);
 
-    ServerResponse becomeFriend(String username1,String username2);
+    ServerResponse becomeFriend(String username,String friend_username);
 
-    ServerResponse delFriend(String username1,String username2);
+    ServerResponse delFriend(String username,String friend_username);
+
+    ServerResponse getAllFriends(String username);
+
+    ServerResponse getFriendsOfFriend(String username);
+
 }
