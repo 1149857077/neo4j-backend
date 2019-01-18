@@ -116,6 +116,6 @@ public class UserController {
         if (user==null){
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        return iUserService.getAllFriends(friend_username);
+        return iUserService.getFriendsOfFriend(friend_username);
     }
 }
