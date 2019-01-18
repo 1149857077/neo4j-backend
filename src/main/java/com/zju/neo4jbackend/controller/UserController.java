@@ -16,11 +16,31 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
+
+    /**
+     * 注册
+     *
+     * @param user
+     *      String username;
+     *      String password;
+     *      String name; 姓名
+     *      String sex;  性别
+     *      String desc; 个性签名
+     * @return
+     */
     @PostMapping("/user/register")
     public ServerResponse register(User user){
         return iUserService.register(user);
     }
 
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     * @param session
+     * @return
+     */
     @PostMapping("/user/login")
     public ServerResponse login(String username, String password, HttpSession session){
         ServerResponse response = iUserService.login(username,password);
@@ -30,6 +50,13 @@ public class UserController {
         return response;
     }
 
+    /**
+     * 添加好友
+     *
+     * @param friend_username
+     * @param session
+     * @return
+     */
     @PostMapping("/user/become_friends")
     public ServerResponse becomeFriend(String friend_username,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -42,6 +69,13 @@ public class UserController {
         return iUserService.becomeFriend(user.getUsername(),friend_username);
     }
 
+    /**
+     * 删除好友
+     *
+     * @param friend_username
+     * @param session
+     * @return
+     */
     @PostMapping("/user/del_friend")
     public ServerResponse delFriend(String friend_username,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -54,6 +88,12 @@ public class UserController {
         return iUserService.delFriend(user.getUsername(),friend_username);
     }
 
+    /**
+     * 获取所有朋友
+     *
+     * @param session
+     * @return
+     */
     @GetMapping("/user/get_all_friends")
     public ServerResponse findAllFriends(HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -63,6 +103,13 @@ public class UserController {
         return iUserService.getAllFriends(user.getUsername());
     }
 
+    /**
+     * 获取朋友的朋友
+     *
+     * @param friend_username
+     * @param session
+     * @return
+     */
     @PostMapping("/user/get_friends_of_friend")
     public ServerResponse getFriendsOfFriend(String friend_username,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);

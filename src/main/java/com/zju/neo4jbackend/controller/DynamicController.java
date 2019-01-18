@@ -20,6 +20,14 @@ public class DynamicController {
     @Autowired
     private IDynamicService iDynamicService;
 
+    /**
+     * 发布动态
+     *
+     * @param message  动态消息
+     * @param imgUri   图片链接
+     * @param session
+     * @return
+     */
     @PostMapping("/dynamic/release")
     public ServerResponse releaseDynamic(String message,String imgUri,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
@@ -29,11 +37,25 @@ public class DynamicController {
         return iDynamicService.releaseDynamic(user.getUsername(),message,imgUri);
     }
 
+    /**
+     * 查询动态列表
+     *
+     * @param username  要查询的用户
+     * @return
+     */
     @PostMapping("/dynamic/list")
     public ServerResponse releaseDynamic(String username){
         return iDynamicService.getDynamicList(username);
     }
 
+
+    /**
+     * 删除动态
+     *
+     * @param dynamicId  要删除的动态id
+     * @param session
+     * @return
+     */
     @PostMapping("/dynamic/delete")
     public ServerResponse deleteDynamic(Long dynamicId,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
