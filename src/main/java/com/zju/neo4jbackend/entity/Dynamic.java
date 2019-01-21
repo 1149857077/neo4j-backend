@@ -17,12 +17,12 @@ public class Dynamic {
     private Long createTime;
     private String createUsername;
     private String message;
-    private String imgUri;
+    private String imgUrl;
 
-    public Dynamic(String createUsername,String message, String imgUri) {
+    public Dynamic(String createUsername,String message, String imgUrl) {
         this.createTime = new Date().getTime();
         this.message = message;
-        this.imgUri = imgUri;
+        this.imgUrl = imgUrl;
         this.createUsername = createUsername;
     }
 
@@ -43,11 +43,11 @@ public class Dynamic {
     }
 
     public String getImgUri() {
-        return imgUri;
+        return imgUrl;
     }
 
-    public void setImgUri(String imgUri) {
-        this.imgUri = imgUri;
+    public void setImgUri(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getCreateUsername() {

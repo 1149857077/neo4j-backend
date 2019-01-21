@@ -20,11 +20,11 @@ public class DynamicServiceImpl implements IDynamicService {
     @Autowired
     private UserRepository userRepository;
 
-    public ServerResponse releaseDynamic(String username,String message, String imgUri){
-        if(message==null&&imgUri==null){
+    public ServerResponse releaseDynamic(String username,String message, String imgUrl){
+        if(message==null&&imgUrl==null){
             return ServerResponse.createByErrorMessage("动态内容不能为空");
         }
-        Dynamic dynamic = new Dynamic(username,message,imgUri);
+        Dynamic dynamic = new Dynamic(username,message,imgUrl);
         Dynamic d = dynamicRepository.save(dynamic);
         dynamicRepository.release(username, d.getId());
         if(d!=null){

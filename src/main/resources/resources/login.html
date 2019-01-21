@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>登录</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">IN+</h1>
+
+            </div>
+            <h3>Welcome to IN+</h3>
+            <p>
+            </p>
+            <p>登录</p>
+            <form>
+                <div class="form-group">
+                    <input id="username" type="text" class="form-control" placeholder="用户名" required>
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" class="form-control" placeholder="密码" required>
+                </div>
+                <button class="btn btn-primary block full-width m-b" id="login">登录</button>
+
+                <a href="forgot_password.html"><small>忘记密码?</small></a>
+                <p class="text-muted text-center"><small>还未创建账户？</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="register.html">创建账户</a>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <!--<script src="js/jquery-2.1.1.js"></script>-->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- SNSMainJS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //登录
+            $("#login").click(function () {
+                var url = "api/api-login.json";
+                // 获取用户名和密码
+                var username = $("#username").val();
+                var password = $("#password").val();
+                if(isEmpty(username) || isEmpty(password)) return;
+                // 请求服务器
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: { "username": username, "password": password },
+                    dataType: "json",
+                    success: function (result) {
+                        // 登录成功
+                        if (result.status == 0) {
+                            // 存储用户信息
+                            $.cookie("username", username);
+                            $.cookie("password", password);
+                            // 页面跳转
+                            location.href = "index.html";
+                        }
+                        // 登录失败
+                        else {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function () {
+                        alert("request fail");
+                    }
+                });
+            });
+        });
+
+        function isEmpty(obj) {
+            if (typeof obj == "undefined" || obj == null || obj == "") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

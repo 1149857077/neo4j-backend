@@ -1,0 +1,11 @@
+{
+"status": 0,
+"msg": "登录成功",
+"data":{
+    "username": "1234",
+    "password": "1234",
+    "name": "保密",
+    "sex": "保密",
+    "desc": null
+    }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>注册</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">IN+</h1>
+
+            </div>
+            <h3>注册账号</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="用户昵称" id="username" required>
+                </div>
+                <!--<div class="form-group">
+                    <input type="email" class="form-control" placeholder="邮箱" id="email" required>
+                </div>-->
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码" id="password" required>
+                </div>
+                <div class="form-group">
+                    <select class="form-control m-b" id="sex">
+                        <option>性别</option>
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="姓名(可选)" id="name">
+                </div>
+                <button id="reg" class="btn btn-primary block full-width m-b">注册</button>
+
+                <p class="text-muted text-center"><small>已有账户?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="login.html">登录</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <!--<script src="js/jquery-2.1.1.js"></script>-->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <!--<script src="js/plugins/iCheck/icheck.min.js"></script>-->
+    <!--<script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>-->
+
+    <!-- SNSMainJS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //注册
+            $("#reg").click(function () {
+                var url = "api/api-register.json";
+                // 获取用户注册信息
+                var username = $("#username").val();
+                var password = $("#password").val();
+                if(isEmpty(username) || isEmpty(password)) return;
+                var sex = "";
+                if($("#sex").prop('selectedIndex') != 0) {
+                    sex = $("#sex").val();
+                }
+                var name = $("#name").val();
+                alert("sex:"+sex+" name:"+name);
+                // 请求服务器
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: { "username": username, "password": password, "name":name, "sex":sex },
+                    dataType: "json",
+                    success: function (result) {
+                        // 注册成功
+                        if (result.status == 0) {
+                            // 存储用户信息
+                            $.cookie("username", username);
+                            $.cookie("password", password);
+                            // 页面跳转
+                            location.href = "index.html";
+                        }
+                        // 登录失败
+                        else {
+                            alert(result.msg);
+                        }
+                    },
+                    error: function () {
+                        alert("request fail");
+                    }
+                });
+            });
+        });
+
+        function isEmpty(obj) {
+            if (typeof obj == "undefined" || obj == null || obj == "") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

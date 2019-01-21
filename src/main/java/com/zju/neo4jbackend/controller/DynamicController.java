@@ -24,17 +24,17 @@ public class DynamicController {
      * 发布动态
      *
      * @param message  动态消息
-     * @param imgUri   图片链接
+     * @param imgUrl   图片链接
      * @param session
      * @return
      */
     @PostMapping("/dynamic/release")
-    public ServerResponse releaseDynamic(String message,String imgUri,HttpSession session){
+    public ServerResponse releaseDynamic(String message,String imgUrl,HttpSession session){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if (user==null){
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        return iDynamicService.releaseDynamic(user.getUsername(),message,imgUri);
+        return iDynamicService.releaseDynamic(user.getUsername(),message,imgUrl);
     }
 
     /**
